@@ -1,0 +1,8 @@
+HTTP/1.1 200 OK
+Date: Fri, 15 Feb 2013 19:21:05 GMT
+Server: Apache
+Content-Length: 292
+Connection: close
+Content-Type: text/plain; charset=utf-8
+
+http://truonghoang.cool/app_dev.php/backend/process_transaction.html/24?client_key=94bc04c3760620d537b6717abd53ff3e&action=return?vpc_AccessCode=6BEB2546&vpc_Command=pay&vpc_OrderInfo=Order_24_1434339624&vpc_Message=Field+AgainLink+value+is+invalid.&Title=VPC+3-Party&vpc_Version=2&client_refer=http%3A%2F%2Ftruonghoang.cool%2Fapp_dev.php%2Fbackend%2F&vpc_Locale=vn&vpc_TicketNo=192.168.0.1&vpc_Merchant=TESTONEPAY&vpc_Amount=100&vpc_Currency=VND&vpc_SecureHash=15A776D4163F685B22CF981C96C4990EDDE888AD29A6A31E1C5C193555017DF0&vpc_MerchTxnRef=20150615104024530985749

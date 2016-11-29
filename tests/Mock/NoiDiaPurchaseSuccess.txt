@@ -1,0 +1,7 @@
+HTTP/1.1 200 OK
+Date: Fri, 15 Feb 2015 19:19:21 GMT
+Server: Apache
+Connection: close
+Content-Type: text/plain; charset=utf-8
+
+vpc_DRExists=Y&vpc_AdditionData=686868&vpc_Amount=1000&vpc_Command=pay&vpc_CurrencyCode=VND&vpc_Locale=vn&vpc_MerchTxnRef=2413&vpc_Merchant=ONEPAY&vpc_Message=Transaction was successful&vpc_OrderInfo=2413&vpc_TransactionNo=1431785&vpc_TxnResponseCode=0&vpc_Version=2
