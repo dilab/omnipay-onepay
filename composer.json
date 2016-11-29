@@ -1,6 +1,5 @@
 {
-    "name": "ngocnh/omnipay-onepay",
-    "type": "ngocnh-library",
+    "name": "dilab/omnipay-onepay",
     "description": "OnePay gateway for Omnipay payment processing library",
     "keywords": [
         "gateway",
@@ -15,10 +14,12 @@
         "paypal",
         "purchase"
     ],
+    "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "xu ding",
-            "email": "thedilab@gmail.com",
+            "email": "thedilab@gmail.com"
         }
     ],
     "minimum-stability": "stable",
