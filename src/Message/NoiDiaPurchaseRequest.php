@@ -20,7 +20,7 @@ class NoiDiaPurchaseRequest extends AbstractRequest
             'vpc_Command'             => 'pay',
             'vpc_MerchTxnRef'         => date('YmdHis') . rand(),
             'vpc_OrderInfo'           => "Order_" . $this->getTransactionId() . "_" . time(),
-            'vpc_Amount'              => $this->getAmount(),
+            'vpc_Amount'              => $this->getAmountInteger(),
             'vpc_Locale'              => $this->httpRequest->getLocale(),
             'vpc_ReturnURL'           => $this->getReturnUrl(),
             'vpc_TicketNo'            => $this->httpRequest->getClientIp(),

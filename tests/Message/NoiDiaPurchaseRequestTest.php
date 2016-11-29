@@ -25,7 +25,7 @@ class NoiDiaPurchaseRequestTest extends TestCase
             'vpcUser'       => 'op01',
             'vpcPassword'   => 'op123456',
             'returnUrl'     => 'http://truonghoang.cool/app_dev.php/backend/process_transaction.html/1431785?client_key=94bc04c3760620d537b6717abd53ff3e&action=return',
-            'amount'        => '1000',
+            'amount'        => 1000.00,
             'currency'      => 'VND',
             'transactionId' => '1431785'
         ];
@@ -36,8 +36,6 @@ class NoiDiaPurchaseRequestTest extends TestCase
 
     public function testGetData()
     {
-//        $this->request->setVpc_MerchTxnRef('33333333333333333');
-
         $expected = [
             'vpc_Merchant'            => 'ONEPAY',
             'vpc_AccessCode'          => 'D67342C2',
@@ -46,9 +44,7 @@ class NoiDiaPurchaseRequestTest extends TestCase
             'vpc_Version'             => '2',
             'vpc_Command'             => 'pay',
             'virtualPaymentClientURL' => $this->testGetEndpoint(),
-//            'vpc_MerchTxnRef' => '33333333333333333',
-//            'vpc_OrderInfo' => "Order_1431786_11111",
-            'vpc_Amount'              => '1000',
+            'vpc_Amount'              => 1000,
             'vpc_Locale'              => $this->getHttpRequest()->getLocale(),
             'vpc_ReturnURL'           => 'http://truonghoang.cool/app_dev.php/backend/process_transaction.html/1431785?client_key=94bc04c3760620d537b6717abd53ff3e&action=return',
             'vpc_TicketNo'            => $this->getHttpRequest()->getClientIp(),

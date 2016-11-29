@@ -25,7 +25,7 @@ class QuocTePurchaseRequestTest extends TestCase
             'vpcUser'       => 'op01',
             'vpcPassword'   => 'op123456',
             'returnUrl'     => 'http://truonghoang.cool/app_dev.php/backend/process_transaction.html/1431786?client_key=94bc04c3760620d537b6717abd53ff3e&action=return',
-            'amount'        => '1000',
+            'amount'        => 1000.00,
             'currency'      => 'VND',
             'transactionId' => '1431786'
         ];
@@ -46,9 +46,7 @@ class QuocTePurchaseRequestTest extends TestCase
             'vpc_Version'             => '2',
             'vpc_Command'             => 'pay',
             'virtualPaymentClientURL' => $this->testGetEndpoint(),
-//            'vpc_MerchTxnRef' => '3333333333333333344444',
-//            'vpc_OrderInfo' => "Order_1431786_22222",
-            'vpc_Amount'              => '1000',
+            'vpc_Amount'              => 1000,
             'vpc_Locale'              => $this->getHttpRequest()->getLocale(),
             'vpc_ReturnURL'           => 'http://truonghoang.cool/app_dev.php/backend/process_transaction.html/1431786?client_key=94bc04c3760620d537b6717abd53ff3e&action=return',
             'vpc_TicketNo'            => $this->getHttpRequest()->getClientIp(),

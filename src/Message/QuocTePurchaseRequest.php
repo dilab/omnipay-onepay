@@ -25,7 +25,7 @@ class QuocTePurchaseRequest extends AbstractRequest
             'vpc_Command'             => 'pay',
             'vpc_MerchTxnRef'         => date('YmdHis') . rand(),
             'vpc_OrderInfo'           => "Order_" . $this->getTransactionId() . "_" . time(),
-            'vpc_Amount'              => $this->getAmount(),
+            'vpc_Amount'              => $this->getAmountInteger(),
             'vpc_Locale'              => $this->httpRequest->getLocale(),
             'vpc_ReturnURL'           => $this->getReturnUrl(),
             'AgainLink'               => urlencode($this->httpRequest->server->get('HTTP_REFERER')),
