@@ -79,7 +79,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function getVpc_MerchTxnRef()
     {
-        return $this->getParameter('vpc_MerchTxnRef');
+        return $this->getTransactionId();
     }
 
 

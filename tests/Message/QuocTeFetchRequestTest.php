@@ -31,7 +31,7 @@ class QuocTeFetchRequestTest extends TestCase
             'testMode'        => true,
             'vpcUser'         => 'op01',
             'vpcPassword'     => 'op123456',
-            'vpc_MerchTxnRef' => 'GDEAXIEM_41382,4523317014'
+            'transactionId' => 'GDEAXIEM_41382,4523317014'
         ];
 
         $this->request->initialize($this->options);

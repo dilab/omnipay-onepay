@@ -95,7 +95,7 @@ class NoiDiaGatewayTest extends GatewayTestCase
             'vpcUser'         => 'op01',
             'vpcPassword'     => 'op123456',
             'testMode'        => true,
-            'vpc_MerchTxnRef' => '2413'
+            'transactionId' => '2413'
         ];
 
         $request = $this->gateway->fetchCheckout($options);
@@ -125,7 +125,7 @@ class NoiDiaGatewayTest extends GatewayTestCase
             'vpcUser'         => 'op01',
             'vpcPassword'     => 'op123456',
             'testMode'        => true,
-            'vpc_MerchTxnRef' => '2013042215193440019'
+            'transactionId' => '2013042215193440019'
         ];
 
         $request = $this->gateway->fetchCheckout($options);

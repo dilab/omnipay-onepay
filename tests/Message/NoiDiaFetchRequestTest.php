@@ -31,7 +31,7 @@ class NoiDiaFetchRequestTest extends TestCase
             'vpcUser'         => 'op01',
             'vpcPassword'     => 'op123456',
             'testMode'        => true,
-            'vpc_MerchTxnRef' => '2413'
+            'transactionId' => '2413'
         ];
 
         $this->request->initialize($this->options);

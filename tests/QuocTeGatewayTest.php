@@ -94,7 +94,7 @@ class QuocTeGatewayTest extends GatewayTestCase
             'testMode'        => true,
             'vpcUser'         => 'op01',
             'vpcPassword'     => 'op123456',
-            'vpc_MerchTxnRef' => 'GDEAXIEM_41382,4523317014',
+            'transactionId' => 'GDEAXIEM_41382,4523317014',
         ];
 
         $request = $this->gateway->fetchCheckout($options);
@@ -119,7 +119,7 @@ class QuocTeGatewayTest extends GatewayTestCase
             'testMode'        => true,
             'vpcUser'         => 'op01',
             'vpcPassword'     => 'op123456',
-            'vpc_MerchTxnRef' => 'GDEAXIEM_41382,4523317014',
+            'transactionId' => 'GDEAXIEM_41382,4523317014',
         ];
 
         $request = $this->gateway->fetchCheckout($options);
