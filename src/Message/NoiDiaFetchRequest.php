@@ -14,7 +14,6 @@ class NoiDiaFetchRequest extends AbstractRequest
 
     protected $testEndpoint = 'https://mtf.onepay.vn/onecomm-pay/Vpcdps.op';
 
-
     public function getData()
     {
         $data = $this->getBaseData();

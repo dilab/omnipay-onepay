@@ -17,7 +17,6 @@ class QuocTeGatewayTest extends GatewayTestCase
      */
     protected $options;
 
-
     public function setUp()
     {
         parent::setUp();

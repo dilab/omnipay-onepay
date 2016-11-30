@@ -17,7 +17,6 @@ class NoiDiaGatewayTest extends GatewayTestCase
      */
     protected $options;
 
-
     public function setUp()
     {
         parent::setUp();
@@ -38,6 +37,35 @@ class NoiDiaGatewayTest extends GatewayTestCase
         ];
     }
 
+    public function testCompletePurchaseSuccess()
+    {
+        $this->setMockHttpResponse('NoiDiaPurchaseSuccess.txt');
+
+        $response = $this->gateway->completePurchase($this->options)->send();
+
+        $this->assertInstanceOf('\Omnipay\OnePay\Message\FetchResponse', $response);
+
+        $this->assertFalse($response->isRedirect());
+
+        $this->assertTrue($response->isSuccessful());
+
+        $this->assertSame('1431785', $response->getTransactionReference());
+    }
+
+    public function testCompletePurchaseFailure()
+    {
+        $this->setMockHttpResponse('NoiDiaPurchaseFailure.txt');
+
+        $response = $this->gateway->completePurchase($this->options)->send();
+
+        $this->assertInstanceOf('\Omnipay\OnePay\Message\FetchResponse', $response);
+
+        $this->assertFalse($response->isRedirect());
+
+        $this->assertFalse($response->isSuccessful());
+
+        $this->assertNotSame('1431785', $response->getTransactionReference());
+    }
 
     public function testPurchaseSuccess()
     {
@@ -59,7 +87,6 @@ class NoiDiaGatewayTest extends GatewayTestCase
         $this->testFetchSuccess();
     }
 
-
     public function testPurchaseFailure()
     {
         $response = $this->gateway->purchase($this->options)->send();
@@ -77,7 +104,6 @@ class NoiDiaGatewayTest extends GatewayTestCase
 
         $this->assertSame('Field AgainLink value is invalid.', $response->getMessage());
     }
-
 
     public function testFetchSuccess()
     {
@@ -138,7 +164,6 @@ class NoiDiaGatewayTest extends GatewayTestCase
 
         return $response;
     }
-
 
     public function testFetchFailure()
     {
