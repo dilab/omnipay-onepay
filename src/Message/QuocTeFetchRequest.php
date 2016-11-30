@@ -23,19 +23,17 @@ class QuocTeFetchRequest extends NoiDiaFetchRequest
 
     public function sendData($data)
     {
-        $httpResponse = $this->httpClient->post($this->getEndpoint(), null, $data //$this->encodeData($data)
-        )->send();
+        $httpResponse = $this->httpClient->post($this->getEndpoint(), null, $data)->send();
 
         return $this->response = new FetchQuocTeResponse($this, $httpResponse->getBody());
     }
-
 
     /**
      * Encode absurd name value pair format
      */
     public function encodeData(array $data)
     {
-        $output = [ ];
+        $output = [];
         foreach ($data as $key => $value) {
             if (strlen($value) > 0 && $key != 'Title') {
                 $output[] = urlencode($key) . '=' . urlencode($value);

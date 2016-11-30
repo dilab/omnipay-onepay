@@ -25,19 +25,48 @@ class QuocTeGatewayTest extends GatewayTestCase
         $this->gateway = new QuocTeGateway($this->getHttpClient(), $this->getHttpRequest());
 
         $this->options = [
-            'vpcMerchant'   => 'TESTONEPAY',
+            'vpcMerchant' => 'TESTONEPAY',
             'vpcAccessCode' => '6BEB2546',
-            'secureHash'    => 'A3EFDFABA8653DF2342E8DAC29B51AF0',
-            'testMode'      => true,
-            'vpcUser'       => 'op01',
-            'vpcPassword'   => 'op123456',
-            'returnUrl'     => 'http://truonghoang.cool/app_dev.php/backend/process_transaction.html/1431785?client_key=94bc04c3760620d537b6717abd53ff3e&action=return',
-            'amount'        => '1000',
-            'currency'      => 'VND',
+            'secureHash' => 'A3EFDFABA8653DF2342E8DAC29B51AF0',
+            'testMode' => true,
+            'vpcUser' => 'op01',
+            'vpcPassword' => 'op123456',
+            'returnUrl' => 'http://www.google.com/app_dev.php/backend/process_transaction.html/1431785?client_key=94bc04c3760620d537b6717abd53ff3e&action=return',
+            'amount' => '1000',
+            'currency' => 'VND',
             'transactionId' => '1431786'
         ];
     }
 
+    public function testCompletePurchaseSuccess()
+    {
+        $this->setMockHttpResponse('QuocTePurchaseSuccess.txt');
+
+        $response = $this->gateway->completePurchase($this->options)->send();
+
+        $this->assertInstanceOf('\Omnipay\OnePay\Message\FetchQuocTeResponse', $response);
+
+        $this->assertFalse($response->isRedirect());
+
+        $this->assertTrue($response->isSuccessful());
+
+        $this->assertSame('1431785', $response->getTransactionReference());
+    }
+
+    public function testCompletePurchaseFailure()
+    {
+        $this->setMockHttpResponse('QuocTePurchaseFailure.txt');
+
+        $response = $this->gateway->completePurchase($this->options)->send();
+
+        $this->assertInstanceOf('\Omnipay\OnePay\Message\FetchQuocTeResponse', $response);
+
+        $this->assertFalse($response->isRedirect());
+
+        $this->assertFalse($response->isSuccessful());
+
+        $this->assertNotSame('1431785', $response->getTransactionReference());
+    }
 
     public function testPurchaseSuccess()
     {
@@ -45,24 +74,22 @@ class QuocTeGatewayTest extends GatewayTestCase
 
         $this->assertInstanceOf('\Omnipay\OnePay\Message\QuocTePurchaseResponse', $response);
 
-//        $this->assertEquals('https://mtf.onepay.vn/vpcpay/vpcpay.op?' . http_build_query($this->options, '', '&'), $response->getRedirectUrl());
-
         $this->assertTrue($response->isRedirect());
 
         //mock data after redirect request
         $this->setMockHttpResponse('QuocTePurchaseSuccess.txt');
 
-        $response = $this->gateway->createResponse('\Omnipay\OnePay\Message\QuocTePurchaseResponse',
-            [ 'vpc_TxnResponseCode' => 0 ], 'purchase');
+        $response = $this->gateway->createResponse('\Omnipay\OnePay\Message\QuocTePurchaseResponse', ['vpc_TxnResponseCode' => 0], 'purchase');
 
         $this->assertTrue($response->isRedirect());
+
         $this->assertTrue($response->isSuccessful());
 
         $this->assertInstanceOf('\Omnipay\OnePay\Message\QuocTePurchaseResponse', $response);
 
         $this->assertTrue($response->isSuccessful());;
-    }
 
+    }
 
     public function testPurchaseFailure()
     {
@@ -75,61 +102,66 @@ class QuocTeGatewayTest extends GatewayTestCase
         //mock data after redirect request
         $this->setMockHttpResponse('QuocTePurchaseFailure.txt');
 
-        $response = $this->gateway->createResponse('\Omnipay\OnePay\Message\QuocTePurchaseResponse',
-            [ 'vpc_Message' => 'Field AgainLink value is invalid.' ], 'purchase');
+        $response = $this->gateway->createResponse('\Omnipay\OnePay\Message\QuocTePurchaseResponse', ['vpc_Message' => 'Field AgainLink value is invalid.'], 'purchase');
 
         $this->assertFalse($response->isSuccessful());
 
         $this->assertSame('Field AgainLink value is invalid.', $response->getMessage());
     }
 
-
     public function testFetchSuccess()
     {
         $this->setMockHttpResponse('QuocTeFetchSuccess.txt');
 
         $options = [
-            'vpcMerchant'     => 'TESTONEPAY',
-            'vpcAccessCode'   => '6BEB2546',
-            'testMode'        => true,
-            'vpcUser'         => 'op01',
-            'vpcPassword'     => 'op123456',
+            'vpcMerchant' => 'TESTONEPAY',
+            'vpcAccessCode' => '6BEB2546',
+            'testMode' => true,
+            'vpcUser' => 'op01',
+            'vpcPassword' => 'op123456',
             'transactionId' => 'GDEAXIEM_41382,4523317014',
         ];
 
         $request = $this->gateway->fetchCheckout($options);
 
         $this->assertInstanceOf('\Omnipay\OnePay\Message\QuocTeFetchRequest', $request);
+
         $this->assertSame('GDEAXIEM_41382,4523317014', $request->getVpc_MerchTxnRef());
 
         $response = $request->send();
+
         $this->assertTrue($response->isSuccessful());
 
         $this->assertSame('Transaction Successful', $response->getMessage());
-    }
 
+        $this->assertSame('1431785', $response->getTransactionReference());
+    }
 
     public function testFetchFailure()
     {
         $this->setMockHttpResponse('QuocTeFetchFailure.txt');
 
         $options = [
-            'vpcMerchant'     => 'TESTONEPAY',
-            'vpcAccessCode'   => 'D67342C2',
-            'testMode'        => true,
-            'vpcUser'         => 'op01',
-            'vpcPassword'     => 'op123456',
+            'vpcMerchant' => 'TESTONEPAY',
+            'vpcAccessCode' => 'D67342C2',
+            'testMode' => true,
+            'vpcUser' => 'op01',
+            'vpcPassword' => 'op123456',
             'transactionId' => 'GDEAXIEM_41382,4523317014',
         ];
 
         $request = $this->gateway->fetchCheckout($options);
 
         $this->assertInstanceOf('\Omnipay\OnePay\Message\QuocTeFetchRequest', $request);
+
         $this->assertSame('GDEAXIEM_41382,4523317014', $request->getVpc_MerchTxnRef());
 
         $response = $request->send();
+
         $this->assertFalse($response->isSuccessful());
 
         $this->assertSame('Unable to be determined', $response->getMessage());
     }
+
+
 }

@@ -17,7 +17,7 @@ class NoiDiaCompletePurchaseRequest extends AbstractRequest
 
     public function getData()
     {
-        $data                    = $this->getBaseData();
+        $data = $this->getBaseData();
         $data['vpc_MerchTxnRef'] = $this->getVpc_MerchTxnRef();
 
         return $data;
@@ -26,14 +26,14 @@ class NoiDiaCompletePurchaseRequest extends AbstractRequest
 
     public function getConfirmReference()
     {
-        $dataConfirm = [ ];
+        $dataConfirm = [];
 
         if ($this->checkHash()) {
             $dataConfirm['responsecode'] = 1;
-            $dataConfirm['desc']         = 'confirm-success';
+            $dataConfirm['desc'] = 'confirm-success';
         } else {
             $dataConfirm['responsecode'] = 0;
-            $dataConfirm['desc']         = 'confirm-fail';
+            $dataConfirm['desc'] = 'confirm-fail';
         }
 
         return $dataConfirm;
@@ -42,8 +42,7 @@ class NoiDiaCompletePurchaseRequest extends AbstractRequest
 
     public function sendData($data)
     {
-        $httpResponse = $this->httpClient->post($this->getEndpoint(), null, $data //$this->encodeData($data)
-        )->send();
+        $httpResponse = $this->httpClient->post($this->getEndpoint(), null, $data)->send();
 
         return $this->response = new FetchResponse($this, $httpResponse->getBody());
     }
@@ -54,7 +53,7 @@ class NoiDiaCompletePurchaseRequest extends AbstractRequest
      */
     public function encodeData(array $data)
     {
-        $output = [ ];
+        $output = [];
         foreach ($data as $key => $value) {
             $output[] = $key . '[' . strlen($value) . ']=' . $value;
         }
@@ -71,7 +70,7 @@ class NoiDiaCompletePurchaseRequest extends AbstractRequest
         // get and remove the vpc_TxnResponseCode code from the response fields as we
         // do not want to include this field in the hash calculation
         $vpc_Txn_Secure_Hash = $data['vpc_SecureHash'];
-        unset ( $data['vpc_SecureHash'] );
+        unset ($data['vpc_SecureHash']);
 
         // set a flag to indicate if hash has been validated
         $hashValidated = false;
@@ -89,8 +88,8 @@ class NoiDiaCompletePurchaseRequest extends AbstractRequest
                 //            $stringHashData .= $value;
                 //        }
                 //      *****************************chỉ lấy các tham số bắt đầu bằng "vpc_" hoặc "user_" và khác trống và không phải chuỗi hash code trả về*****************************
-                if ($key != "vpc_SecureHash" && ( strlen($value) > 0 ) && ( ( substr($key, 0,
-                                4) == "vpc_" ) || ( substr($key, 0, 5) == "user_" ) )
+                if ($key != "vpc_SecureHash" && (strlen($value) > 0) && ((substr($key, 0,
+                                4) == "vpc_") || (substr($key, 0, 5) == "user_"))
                 ) {
                     $stringHashData .= $key . "=" . $value . "&";
                 }

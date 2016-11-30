@@ -20,11 +20,11 @@ class FetchResponse extends AbstractResponse
 
     public function isSuccessful()
     {
-        if (isset( $this->data['vpc_DRExists'] ) && $this->data['vpc_DRExists'] == 'Y' && isset( $this->data['vpc_TxnResponseCode'] ) && $this->data['vpc_TxnResponseCode'] == '0') {
+        if (isset($this->data['vpc_DRExists']) && $this->data['vpc_DRExists'] == 'Y' && isset($this->data['vpc_TxnResponseCode']) && $this->data['vpc_TxnResponseCode'] == '0') {
             return true;
-        } elseif ( ! isset( $this->data['vpc_DRExists'] ) && isset( $this->data['vpc_TxnResponseCode'] ) && $this->data['vpc_TxnResponseCode'] == '0') {
+        } elseif (!isset($this->data['vpc_DRExists']) && isset($this->data['vpc_TxnResponseCode']) && $this->data['vpc_TxnResponseCode'] == '0') {
             return true;
-        } elseif (isset( $this->data['vpc_ResponseCode'] ) && $this->data['vpc_ResponseCode'] == '0') {
+        } elseif (isset($this->data['vpc_ResponseCode']) && $this->data['vpc_ResponseCode'] == '0') {
             return true;
         }
 
@@ -37,17 +37,25 @@ class FetchResponse extends AbstractResponse
      */
     public function getMessage()
     {
-        if (isset( $this->data['vpc_DRExists'] ) && $this->data['vpc_DRExists'] == 'N') {
-            return "Không tồn tại giao dịch";
+        if (isset($this->data['vpc_DRExists']) && $this->data['vpc_DRExists'] == 'N') {
+            return 'Transaction is note created in payment server';
         } else {
-            if (isset( $this->data['vpc_TxnResponseCode'] )) {
+            if (isset($this->data['vpc_TxnResponseCode'])) {
                 return $this->getResponseDescription($this->data['vpc_TxnResponseCode']);
             }
 
-            return isset( $this->data['vpc_Message'] ) ? $this->data['vpc_Message'] : '';
+            return isset($this->data['vpc_Message']) ? $this->data['vpc_Message'] : '';
         }
     }
 
+    public function getTransactionReference()
+    {
+        if (isset($this->data['vpc_TransactionNo'])) {
+            return $this->data['vpc_TransactionNo'];
+        }
+
+        return null;
+    }
 
     /**
      * @return string
@@ -56,16 +64,17 @@ class FetchResponse extends AbstractResponse
     {
         switch ($responseCode) {
             case "0" :
-                $result = "Giao dịch thành công - Approved";
+                $result = "Approved";
                 break;
             case "300" :
-                $result = "Giao dịch đang chờ - Pending";
+                $result = "Pending";
                 break;
             default :
-                $result = "Giao dịch không thanh toán thành công - Failured";
+                $result = "Failured";
         }
 
         return $result;
     }
+
 
 }

@@ -22,11 +22,11 @@ class NoiDiaGateway extends AbstractGateway
     {
         return [
             'vpcAccessCode' => '',
-            'vpcMerchant'   => '',
-            'secureHash'    => '',
-            'vpcUser'       => '',
-            'vpcPassword'   => '',
-            'testMode'      => false,
+            'vpcMerchant' => '',
+            'secureHash' => '',
+            'vpcUser' => '',
+            'vpcPassword' => '',
+            'testMode' => false,
         ];
     }
 
@@ -103,19 +103,19 @@ class NoiDiaGateway extends AbstractGateway
     }
 
 
-    public function purchase(array $parameters = [ ])
+    public function purchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\OnePay\Message\NoiDiaPurchaseRequest', $parameters);
     }
 
 
-    public function completePurchase(array $parameters = [ ])
+    public function completePurchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\OnePay\Message\NoiDiaFetchRequest', $parameters);
     }
 
 
-    public function fetchCheckout(array $parameters = [ ])
+    public function fetchCheckout(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\OnePay\Message\NoiDiaFetchRequest', $parameters);
     }
@@ -126,19 +126,19 @@ class NoiDiaGateway extends AbstractGateway
      *
      * Create a response object using existing parameters from return url , redirect url
      *
-     * @param string $class      The response class name, ex: \Omnipay\Payflow\Message\Response
-     * @param array  $parameters , ex: ["action" => "return", "vpc_TxnResponseCode" => 5, "vpc_Message" => "Amount is
+     * @param string $class The response class name, ex: \Omnipay\Payflow\Message\Response
+     * @param array $parameters , ex: ["action" => "return", "vpc_TxnResponseCode" => 5, "vpc_Message" => "Amount is
      *                           invalid"]
      *
      * @return object, ex: \Omnipay\Common\Message\Response
      */
     public function createResponse($class, array $parameters, $type)
     {
-        return new $class(call_user_func_array([ $this, $type ], [ $parameters ]), $parameters);
+        return new $class(call_user_func_array([$this, $type], [$parameters]), $parameters);
     }
 
 
-    public function getResponse(array $parameters = [ ], $type = 'purchase')
+    public function getResponse(array $parameters = [], $type = 'purchase')
     {
         return $this->createResponse('\Omnipay\OnePay\Message\Response', $parameters, $type);
     }

@@ -15,26 +15,22 @@ class QuocTeGateway extends NoiDiaGateway
         return 'OnePay Quoc Te';
     }
 
-
-    public function purchase(array $parameters = [ ])
+    public function purchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\OnePay\Message\QuocTePurchaseRequest', $parameters);
     }
 
-
-    public function completePurchase(array $parameters = [ ])
+    public function completePurchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\OnePay\Message\QuocTeFetchRequest', $parameters);
     }
 
-
-    public function fetchCheckout(array $parameters = [ ])
+    public function fetchCheckout(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\OnePay\Message\QuocTeFetchRequest', $parameters);
     }
 
-
-    public function getResponse(array $parameters = [ ], $type = 'purchase')
+    public function getResponse(array $parameters = [], $type = 'purchase')
     {
         return $this->createResponse('\Omnipay\OnePay\Message\QuocTePurchaseResponse', $parameters, $type);
     }
