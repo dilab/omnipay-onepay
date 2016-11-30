@@ -38,10 +38,15 @@ class FetchResponse extends AbstractResponse
     public function getMessage()
     {
         if (isset($this->data['vpc_DRExists']) && $this->data['vpc_DRExists'] == 'N') {
-            return 'Transaction is note created in payment server';
+
+            return 'Transaction is not created in payment server';
+
         } else {
+
             if (isset($this->data['vpc_TxnResponseCode'])) {
+
                 return $this->getResponseDescription($this->data['vpc_TxnResponseCode']);
+
             }
 
             return isset($this->data['vpc_Message']) ? $this->data['vpc_Message'] : '';

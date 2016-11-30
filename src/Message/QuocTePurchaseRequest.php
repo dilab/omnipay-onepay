@@ -23,7 +23,7 @@ class QuocTePurchaseRequest extends AbstractRequest
             'virtualPaymentClientURL' => $this->getEndpoint(),
             'vpc_Version' => $this::API_VERSION,
             'vpc_Command' => 'pay',
-            'vpc_MerchTxnRef' => 'txt_' . $this->getTransactionId() . '_' . time(),
+            'vpc_MerchTxnRef' => $this->getTransactionId(),
             'vpc_OrderInfo' => $this->getTransactionId(),
             'vpc_Amount' => $this->getAmountInteger(),
             'vpc_Locale' => $this->httpRequest->getLocale(),
