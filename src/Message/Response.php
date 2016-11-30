@@ -12,29 +12,29 @@ class Response extends AbstractResponse
 {
 
     protected $transactionStatus = [
-        '0'  => 'Giao dịch thành công - Approved',
-        '1'  => 'Ngân hàng từ chối giao dịch - Bank Declined',
-        '3'  => 'Mã đơn vị không tồn tại - Merchant not exist',
-        '4'  => 'Không đúng access code - Invalid access code',
-        '5'  => 'Số tiền không hợp lệ - Invalid amount',
-        '6'  => 'Mã tiền tệ không tồn tại - Invalid currency code',
-        '7'  => 'Lỗi không xác định - Unspecified Failure',
-        '8'  => 'Số thẻ không đúng - Invalid card Number',
-        '9'  => 'Tên chủ thẻ không đúng - Invalid card name',
+        '0' => 'Giao dịch thành công - Approved',
+        '1' => 'Ngân hàng từ chối giao dịch - Bank Declined',
+        '3' => 'Mã đơn vị không tồn tại - Merchant not exist',
+        '4' => 'Không đúng access code - Invalid access code',
+        '5' => 'Số tiền không hợp lệ - Invalid amount',
+        '6' => 'Mã tiền tệ không tồn tại - Invalid currency code',
+        '7' => 'Lỗi không xác định - Unspecified Failure',
+        '8' => 'Số thẻ không đúng - Invalid card Number',
+        '9' => 'Tên chủ thẻ không đúng - Invalid card name',
         '10' => 'Thẻ hết hạn/Thẻ bị khóa - Expired Card',
         '11' => 'Thẻ chưa đăng ký sử dụng dịch vụ - Card Not Registed Service(internet banking)',
         '12' => 'Ngày phát hành/Hết hạn không đúng - Invalid card date',
         '13' => 'Vượt quá hạn mức thanh toán - Exist Amount',
         '21' => 'Số tiền không đủ để thanh toán - Insufficient fund',
         '99' => 'Người sủ dụng hủy giao dịch - User cancel',
-        'X'  => 'Giao dịch thất bại - Failured'
+        'X' => 'Giao dịch thất bại - Failured'
     ];
 
 
     public function __construct(RequestInterface $request, $data)
     {
         $this->request = $request;
-        if ( ! is_array($data)) {
+        if (!is_array($data)) {
             parse_str($data, $this->data);
         } else {
             $this->data = $data;
@@ -44,9 +44,9 @@ class Response extends AbstractResponse
 
     public function isSuccessful()
     {
-        if (isset( $this->data['vpc_TxnResponseCode'] ) && $this->data['vpc_TxnResponseCode'] == '0') {
+        if (isset($this->data['vpc_TxnResponseCode']) && $this->data['vpc_TxnResponseCode'] == '0') {
             $result = true;
-        } elseif (isset( $this->data['vpc_ResponseCode'] ) && $this->data['vpc_ResponseCode'] == '0') {
+        } elseif (isset($this->data['vpc_ResponseCode']) && $this->data['vpc_ResponseCode'] == '0') {
             $result = true;
         } else {
             $result = false;
@@ -63,11 +63,11 @@ class Response extends AbstractResponse
      */
     public function getTransactionReference()
     {
-        foreach ([ 'vpc_MerchTxnRef', 'vpc_TransactionNo' ] as $key) {
-            if (isset( $this->data[$key] )) {
-                return $this->data[$key];
-            }
+        if (isset($this->data['vpc_TransactionNo'])) {
+            return $this->data['vpc_TransactionNo'];
         }
+
+        return null;
     }
 
 
@@ -76,9 +76,9 @@ class Response extends AbstractResponse
      */
     public function getMessage()
     {
-        if (isset( $this->data['vpc_TxnResponseCode'] )) {
+        if (isset($this->data['vpc_TxnResponseCode'])) {
             return $this->getResponseDescription($this->data['vpc_TxnResponseCode']);
-        } elseif (isset( $this->data['vpc_ResponseCode'] )) {
+        } elseif (isset($this->data['vpc_ResponseCode'])) {
             return $this->getResponseDescription($this->data['vpc_ResponseCode']);
         } else {
             return $this->data['vpc_Message'];
