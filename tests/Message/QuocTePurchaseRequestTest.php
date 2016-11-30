@@ -43,7 +43,7 @@ class QuocTePurchaseRequestTest extends TestCase
             'vpc_Version' => '2',
             'vpc_Command' => 'pay',
             'virtualPaymentClientURL' => $this->testGetEndpoint(),
-            'vpc_Amount' => 1000,
+            'vpc_Amount' => 100000,
             'vpc_Locale' => $this->getHttpRequest()->getLocale(),
             'vpc_ReturnURL' => 'http://www.google.com/app_dev.php/backend/process_transaction.html/1431786?client_key=94bc04c3760620d537b6717abd53ff3e&action=return',
             'vpc_TicketNo' => $this->getHttpRequest()->getClientIp(),
@@ -62,7 +62,6 @@ class QuocTePurchaseRequestTest extends TestCase
         $this->assertEquals($expected, $requetData);
     }
 
-
     public function testSendData()
     {
         $this->testGetData();
@@ -71,7 +70,6 @@ class QuocTePurchaseRequestTest extends TestCase
 
         $this->assertArrayHasKey('vpc_SecureHash', $data);
     }
-
 
     public function testGetEndpoint()
     {

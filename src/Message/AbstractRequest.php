@@ -5,6 +5,7 @@
 
 namespace Omnipay\OnePay\Message;
 
+use Omnipay\Common\CurrencyTest;
 use \Omnipay\Common\Message\AbstractRequest as BaseAbstractRequest;
 
 abstract class AbstractRequest extends BaseAbstractRequest
@@ -16,6 +17,16 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     protected $testEndpoint = 'https://mtf.onepay.vn/onecomm-pay/vpc.op';
 
+    public function getAmountInteger()
+    {
+        $result = parent::getAmountInteger();
+
+        if ('VND' == strtoupper($this->getCurrency())) {
+            return $result * 100;
+        }
+
+        return $result;
+    }
 
     public function getVpcAccessCode()
     {
@@ -92,7 +103,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
     protected function getBaseData()
     {
         return [
-            'vpc_Merchant'   => $this->getVpcMerchant(),
+            'vpc_Merchant' => $this->getVpcMerchant(),
             'vpc_AccessCode' => $this->getVpcAccessCode(),
         ];
     }
@@ -100,7 +111,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     public function sendData($data)
     {
-        $url          = $this->getEndpoint() . '?' . http_build_query($data, '', '&');
+        $url = $this->getEndpoint() . '?' . http_build_query($data, '', '&');
         $httpResponse = $this->httpClient->get($url)->send();
 
         return $this->createResponse($httpResponse->getBody());
@@ -127,9 +138,9 @@ abstract class AbstractRequest extends BaseAbstractRequest
         // Remove the Virtual Payment Client URL from the parameter hash as we
         // do not want to send these fields to the Virtual Payment Client.
         // bÃ¡Â»Â giÃƒÂ¡ trÃ¡Â»â€¹ url vÃƒÂ  nÃƒÂºt submit ra khÃ¡Â»Âi mÃ¡ÂºÂ£ng dÃ¡Â»Â¯ liÃ¡Â»â€¡u
-        unset( $data["virtualPaymentClientURL"] );
-        unset( $data["SubButL"] );
-        unset( $data["vpc_order_id"] );
+        unset($data["virtualPaymentClientURL"]);
+        unset($data["SubButL"]);
+        unset($data["vpc_order_id"]);
 
         //$stringHashData = $SECURE_SECRET; *****************************Khởi tạo chuỗi dữ liệu mã hóa trống*****************************
         $stringHashData = "";
@@ -139,8 +150,8 @@ abstract class AbstractRequest extends BaseAbstractRequest
             // tạo chuỗi đầu dữ liệu những tham số có dữ liệu
             if (strlen($value) > 0) {
                 //$stringHashData .= $value; *****************************sử dụng cả tên và giá trị tham số để mã hóa*****************************
-                if (( strlen($value) > 0 ) && ( ( substr($key, 0, 4) == "vpc_" ) || ( substr($key, 0,
-                                5) == "user_" ) )
+                if ((strlen($value) > 0) && ((substr($key, 0, 4) == "vpc_") || (substr($key, 0,
+                                5) == "user_"))
                 ) {
                     $stringHashData .= $key . "=" . $value . "&";
                 }
