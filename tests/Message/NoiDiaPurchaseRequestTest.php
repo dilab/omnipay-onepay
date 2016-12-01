@@ -55,6 +55,7 @@ class NoiDiaPurchaseRequestTest extends TestCase
         $requetData = $this->request->getData();
 
         $this->assertSame('1431785', $requetData['vpc_MerchTxnRef']);
+        $this->assertSame('1431785', $requetData['vpc_OrderInfo']);
         $this->assertNotNull($requetData['vpc_OrderInfo']);
 
         // exclude by random property

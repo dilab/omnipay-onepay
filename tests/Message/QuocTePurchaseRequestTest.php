@@ -53,6 +53,7 @@ class QuocTePurchaseRequestTest extends TestCase
         $requetData = $this->request->getData();
 
         $this->assertSame('1431786', $requetData['vpc_MerchTxnRef']);
+        $this->assertSame('1431786', $requetData['vpc_OrderInfo']);
         $this->assertNotNull($requetData['vpc_OrderInfo']);
 
         // exclude by random property
