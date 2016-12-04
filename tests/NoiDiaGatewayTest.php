@@ -189,7 +189,7 @@ class NoiDiaGatewayTest extends GatewayTestCase
 
         $this->assertFalse($response->isSuccessful());
 
-        $this->assertSame('Failured', $response->getMessage());
+        $this->assertSame('Failed', $response->getMessage());
 
         return $response;
     }

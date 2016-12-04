@@ -14,30 +14,30 @@ class QuocTePurchaseResponse extends Response implements RedirectResponseInterfa
     protected $testEndpoint = 'https://mtf.onepay.vn/vpcpay/vpcpay.op';
 
     protected $transactionStatus = [
-        '0' => 'Transaction is successful',
-        '1' => 'Bank system reject',
+        '0' => 'Transaction Is Successful',
+        '1' => 'Bank System Reject',
         '2' => 'Bank Declined Transaction',
-        '3' => 'No Reply from Bank',
+        '3' => 'No Reply From Bank',
         '4' => 'Expired Card',
-        '5' => 'Insufficient funds',
-        '6' => 'Error Communicating with Bank',
+        '5' => 'Insufficient Funds',
+        '6' => 'Error Communicating With Bank',
         '7' => 'Payment Server System Error',
         '8' => 'Transaction Type Not Supported',
-        '9' => 'Bank declined transaction (Do not contact Bank)',
+        '9' => 'Bank Declined Transaction (Do Not Contact Bank)',
         'A' => 'Transaction Aborted',
         'C' => 'Transaction Cancelled',
-        'D' => 'Deferred transaction has been received and is awaiting processing',
-        'B' => '3D Secure Authentication failed',
-        'W' => '3D Secure Authentication failed',
-        'F' => '3D Secure Authentication failed',
-        'I' => 'Card Security Code verification failed',
-        'R' => 'Reached limit of retry attempts allowed',
+        'D' => 'Deferred Transaction Has Been Received And Is Awaiting Processing',
+        'B' => '3d Secure Authentication Failed',
+        'W' => '3d Secure Authentication Failed',
+        'F' => '3d Secure Authentication Failed',
+        'I' => 'Card Security Code Verification Failed',
+        'R' => 'Reached Limit Of Retry Attempts Allowed',
         'S' => 'Duplicate SessionID (OrderInfo)',
         'T' => 'Address Verification Failed',
         'U' => 'Card Security Code Failed',
-        'V' => 'Address Verification and Card Security Code Failed',
+        'V' => 'Address Verification And Card Security Code Failed',
         '99' => 'User Cancel',
-        'X' => 'Failured'
+        'X' => 'Failed'
     ];
 
     public function isRedirect()

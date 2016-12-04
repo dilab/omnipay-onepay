@@ -8,7 +8,7 @@ use Omnipay\Common\Message\RequestInterface;
 /**
  * FetchResponse
  */
-class FetchResponse extends AbstractResponse
+class FetchResponse extends Response
 {
 
     public function __construct(RequestInterface $request, $data)
@@ -65,21 +65,21 @@ class FetchResponse extends AbstractResponse
     /**
      * @return string
      */
-    protected function getResponseDescription($responseCode)
-    {
-        switch ($responseCode) {
-            case "0" :
-                $result = "Approved";
-                break;
-            case "300" :
-                $result = "Pending";
-                break;
-            default :
-                $result = "Failured";
-        }
-
-        return $result;
-    }
+//    protected function getResponseDescription($responseCode)
+//    {
+//        switch ($responseCode) {
+//            case "0" :
+//                $result = "Approved";
+//                break;
+//            case "300" :
+//                $result = "Pending";
+//                break;
+//            default :
+//                $result = "Failed";
+//        }
+//
+//        return $result;
+//    }
 
 
 }

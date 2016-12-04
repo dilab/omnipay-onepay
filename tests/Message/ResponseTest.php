@@ -22,7 +22,7 @@ class ResponseTest extends TestCase
 
         $this->assertTrue($response->isSuccessful());
         $this->assertSame('1431785', $response->getTransactionReference());
-        $this->assertEquals('Giao dịch thành công - Approved', $response->getMessage());
+        $this->assertEquals('Approved', $response->getMessage());
     }
 
 

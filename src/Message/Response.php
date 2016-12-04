@@ -12,22 +12,22 @@ class Response extends AbstractResponse
 {
 
     protected $transactionStatus = [
-        '0' => 'Giao dịch thành công - Approved',
-        '1' => 'Ngân hàng từ chối giao dịch - Bank Declined',
-        '3' => 'Mã đơn vị không tồn tại - Merchant not exist',
-        '4' => 'Không đúng access code - Invalid access code',
-        '5' => 'Số tiền không hợp lệ - Invalid amount',
-        '6' => 'Mã tiền tệ không tồn tại - Invalid currency code',
-        '7' => 'Lỗi không xác định - Unspecified Failure',
-        '8' => 'Số thẻ không đúng - Invalid card Number',
-        '9' => 'Tên chủ thẻ không đúng - Invalid card name',
-        '10' => 'Thẻ hết hạn/Thẻ bị khóa - Expired Card',
-        '11' => 'Thẻ chưa đăng ký sử dụng dịch vụ - Card Not Registed Service(internet banking)',
-        '12' => 'Ngày phát hành/Hết hạn không đúng - Invalid card date',
-        '13' => 'Vượt quá hạn mức thanh toán - Exist Amount',
-        '21' => 'Số tiền không đủ để thanh toán - Insufficient fund',
-        '99' => 'Người sủ dụng hủy giao dịch - User cancel',
-        'X' => 'Giao dịch thất bại - Failured'
+        '0' => 'Approved',
+        '1' => 'Bank Declined',
+        '3' => 'Merchant Not Exist',
+        '4' => 'Invalid Access Code',
+        '5' => 'Invalid Amount',
+        '6' => 'Invalid Currency Code',
+        '7' => 'Unspecified Failure',
+        '8' => 'Invalid Card Number',
+        '9' => 'Invalid Card Name',
+        '10' => 'Expired Card',
+        '11' => 'Card Not Registered Service(Internet Banking)',
+        '12' => 'Invalid Card Date',
+        '13' => 'Exist Amount',
+        '21' => 'Insufficient Fund',
+        '99' => 'User Cancel',
+        'X' => 'Failed'
     ];
 
 
