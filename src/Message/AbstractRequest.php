@@ -33,72 +33,60 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->getParameter('vpcAccessCode');
     }
 
-
     public function setVpcAccessCode($vpcAccessCode)
     {
         return $this->setParameter('vpcAccessCode', $vpcAccessCode);
     }
-
 
     public function getVpcMerchant()
     {
         return $this->getParameter('vpcMerchant');
     }
 
-
     public function setVpcMerchant($vpcMerchant)
     {
         return $this->setParameter('vpcMerchant', $vpcMerchant);
     }
-
 
     public function getSecureHash()
     {
         return $this->getParameter('secureHash');
     }
 
-
     public function setSecureHash($secureHash)
     {
         return $this->setParameter('secureHash', $secureHash);
     }
-
 
     public function getVpcUser()
     {
         return $this->getParameter('vpcUser');
     }
 
-
     public function setVpcUser($vpcUser)
     {
         return $this->setParameter('vpcUser', $vpcUser);
     }
-
 
     public function getVpcPassword()
     {
         return $this->getParameter('vpcPassword');
     }
 
-
     public function setVpcPassword($vpcPassword)
     {
         return $this->setParameter('vpcPassword', $vpcPassword);
     }
-
 
     public function getVpc_MerchTxnRef()
     {
         return $this->getTransactionId();
     }
 
-
     public function setVpc_MerchTxnRef($value)
     {
         return $this->setParameter('vpc_MerchTxnRef', $value);
     }
-
 
     protected function getBaseData()
     {
@@ -108,7 +96,6 @@ abstract class AbstractRequest extends BaseAbstractRequest
         ];
     }
 
-
     public function sendData($data)
     {
         $url = $this->getEndpoint() . '?' . http_build_query($data, '', '&');
@@ -117,18 +104,15 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->createResponse($httpResponse->getBody());
     }
 
-
     protected function getEndpoint()
     {
         return $this->getTestMode() ? $this->testEndpoint : $this->liveEndpoint;
     }
 
-
     protected function createResponse($data)
     {
         return $this->response = new Response($this, $data);
     }
-
 
     public function generateDataWithChecksum($data)
     {

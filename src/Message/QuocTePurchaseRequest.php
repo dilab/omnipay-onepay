@@ -7,11 +7,9 @@ namespace Omnipay\OnePay\Message;
  */
 class QuocTePurchaseRequest extends AbstractRequest
 {
-
     protected $liveEndpoint = 'https://onepay.vn/vpcpay/vpcpay.op';
 
     protected $testEndpoint = 'https://mtf.onepay.vn/vpcpay/vpcpay.op';
-
 
     public function getData()
     {

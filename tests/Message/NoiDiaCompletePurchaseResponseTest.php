@@ -57,7 +57,7 @@ class NoiDiaCompletePurchaseResponseTest extends TestCase
         $this->response = new NoiDiaCompletePurchaseResponse($this->getMockRequest(), $data);
 
         $this->assertFalse($this->response->isSuccessful());
-        
+
         $this->assertEquals('Mã đơn vị không tồn tại - Merchant not exist',$this->response->getMessage());
     }
 
