@@ -4,4 +4,5 @@ Server: Apache
 Connection: close
 Content-Type: text/plain; charset=utf-8
 
-vpc_DRExists=Y&vpc_AdditionData=686868&vpc_Amount=1000&vpc_Command=pay&vpc_CurrencyCode=VND&vpc_Locale=vn&vpc_MerchTxnRef=2413&vpc_Merchant=ONEPAY&vpc_Message=Transaction was successful&vpc_OrderInfo=2413&vpc_TransactionNo=1431785&vpc_TxnResponseCode=0&vpc_Version=2
+
+vpc_AdditionData=970436&vpc_Amount=100&vpc_Command=pay&vpc_CurrencyCode=VND&vpc_Locale=vn&vpc_MerchTxnRef=201803210919102006754784&vpc_Merchant=ONEPAY&vpc_OrderInfo=JSECURETEST01&vpc_TransactionNo=1625746&vpc_TxnResponseCode=0&vpc_Version=2&vpc_SecureHash=0331F9D8E0CD9A6BC581B74721658DFD9A5A219145F92DED700C13E4843BB3B0
