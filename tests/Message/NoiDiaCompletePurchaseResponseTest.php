@@ -6,33 +6,59 @@ use Omnipay\Tests\TestCase;
 
 class NoiDiaCompletePurchaseResponseTest extends TestCase
 {
+    /**
+     * @var NoiDiaCompletePurchaseResponse
+     */
+    public $response;
 
-    protected $response;
-
-
-    public function testConstruct()
+    public function testIsSuccessReturnTrue()
     {
-        $expected = [
-            'vpc_Merchant'    => 'ONEPAY',
-            'vpc_AccessCode'  => 'D67342C2',
-            'vpc_order_id'    => '1431785',
-            'Title'           => 'VPC 3-Party',
-            'vpc_Version'     => '2',
-            'vpc_Command'     => 'pay',
-            'vpc_MerchTxnRef' => '33333333333333333',
-            'vpc_OrderInfo'   => "Order_1431785__11111",
-            'vpc_Amount'      => '1000',
-            'vpc_Locale'      => 'vn',
-            'vpc_ReturnURL'   => 'http://truonghoang.cool/app_dev.php/backend/process_transaction.html/1431785?client_key=94bc04c3760620d537b6717abd53ff3e&action=return',
-            'vpc_TicketNo'    => '192.168.0.1',
-            'vpc_Currency'    => 'VND',
-            'vpc_SecureHash'  => '44444444444444444'
+        $data = [
+            'vpc_AdditionData' => 970436,
+            'vpc_Amount' => 100,
+            'vpc_Command' => 'pay',
+            'vpc_CurrencyCode' => 'VND',
+            'vpc_Locale' => 'vn',
+            'vpc_MerchTxnRef' => '201803210919102006754784',
+            'vpc_Merchant' => 'ONEPAY',
+            'vpc_OrderInfo' => 'JSECURETEST01',
+            'vpc_TransactionNo' => '1625746',
+            'vpc_TxnResponseCode' => 0,
+            'vpc_Version' => 2,
+            'vpc_SecureHash' => '0331F9D8E0CD9A6BC581B74721658DFD9A5A219145F92DED700C13E4843BB3B0',
+            'computed_hash_value' => '0331f9d8e0cd9a6bc581b74721658dfd9a5a219145f92ded700c13e4843bb3b0'
         ];
 
-        // response should decode URL format data
-        $this->response = new NoiDiaCompletePurchaseResponse($this->getMockRequest(), http_build_query($expected));
+        $this->response = new NoiDiaCompletePurchaseResponse($this->getMockRequest(), $data);
 
-        $this->assertEquals($expected, $this->response->getData());
+        $this->assertTrue($this->response->isSuccessful());
+        $this->assertFalse($this->response->isPending());
+        $this->assertFalse($this->response->isRedirect());
+    }
+
+    public function testGetMessage()
+    {
+        $data = [
+            'vpc_AdditionData' => 970436,
+            'vpc_Amount' => 100,
+            'vpc_Command' => 'pay',
+            'vpc_CurrencyCode' => 'VND',
+            'vpc_Locale' => 'vn',
+            'vpc_MerchTxnRef' => '201803210919102006754784',
+            'vpc_Merchant' => 'ONEPAY',
+            'vpc_OrderInfo' => 'JSECURETEST01',
+            'vpc_TransactionNo' => '1625746',
+            'vpc_TxnResponseCode' => 3,
+            'vpc_Version' => 2,
+            'vpc_SecureHash' => '123',
+            'computed_hash_value' => '345'
+        ];
+
+        $this->response = new NoiDiaCompletePurchaseResponse($this->getMockRequest(), $data);
+
+        $this->assertFalse($this->response->isSuccessful());
+        
+        $this->assertEquals('Mã đơn vị không tồn tại - Merchant not exist',$this->response->getMessage());
     }
 
 }
