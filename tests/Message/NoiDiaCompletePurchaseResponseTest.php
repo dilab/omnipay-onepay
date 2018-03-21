@@ -34,6 +34,8 @@ class NoiDiaCompletePurchaseResponseTest extends TestCase
         $this->assertTrue($this->response->isSuccessful());
         $this->assertFalse($this->response->isPending());
         $this->assertFalse($this->response->isRedirect());
+        $this->assertEquals('1625746',$this->response->getTransactionReference());
+        $this->assertEquals('JSECURETEST01',$this->response->getTransactionId());
     }
 
     public function testGetMessage()

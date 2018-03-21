@@ -39,26 +39,52 @@ class QuocTeGatewayTest extends GatewayTestCase
 
     public function testCompletePurchaseSuccess()
     {
-        $this->setMockHttpResponse('QuocTePurchaseSuccess.txt');
+        $this->getHttpRequest()->request->replace([
+            'vpc_AdditionData' => 970436,
+            'vpc_Amount' => 100,
+            'vpc_Command' => 'pay',
+            'vpc_CurrencyCode' => 'VND',
+            'vpc_Locale' => 'vn',
+            'vpc_MerchTxnRef' => '201803210919102006754784',
+            'vpc_Merchant' => 'ONEPAY',
+            'vpc_OrderInfo' => 'JSECURETEST01',
+            'vpc_TransactionNo' => '1625746',
+            'vpc_TxnResponseCode' => 0,
+            'vpc_Version' => 2,
+            'vpc_SecureHash' => '0331F9D8E0CD9A6BC581B74721658DFD9A5A219145F92DED700C13E4843BB3B0'
+        ]);
 
         $response = $this->gateway->completePurchase($this->options)->send();
 
-        $this->assertInstanceOf('\Omnipay\OnePay\Message\FetchQuocTeResponse', $response);
+        $this->assertInstanceOf('\Omnipay\OnePay\Message\NoiDiaCompletePurchaseResponse', $response);
 
         $this->assertFalse($response->isRedirect());
 
         $this->assertTrue($response->isSuccessful());
 
-        $this->assertSame('1431785', $response->getTransactionReference());
+        $this->assertSame('1625746', $response->getTransactionReference());
     }
 
     public function testCompletePurchaseFailure()
     {
-        $this->setMockHttpResponse('QuocTePurchaseFailure.txt');
+        $this->getHttpRequest()->request->replace([
+            'vpc_AdditionData' => 970436,
+            'vpc_Amount' => 100,
+            'vpc_Command' => 'pay',
+            'vpc_CurrencyCode' => 'VND',
+            'vpc_Locale' => 'vn',
+            'vpc_MerchTxnRef' => '201803210919102006754784',
+            'vpc_Merchant' => 'ONEPAY',
+            'vpc_OrderInfo' => 'JSECURETEST01',
+            'vpc_TransactionNo' => '1625746',
+            'vpc_TxnResponseCode' => 0,
+            'vpc_Version' => 2,
+            'vpc_SecureHash' => '123'
+        ]);
 
         $response = $this->gateway->completePurchase($this->options)->send();
 
-        $this->assertInstanceOf('\Omnipay\OnePay\Message\FetchQuocTeResponse', $response);
+        $this->assertInstanceOf('\Omnipay\OnePay\Message\NoiDiaCompletePurchaseResponse', $response);
 
         $this->assertFalse($response->isRedirect());
 

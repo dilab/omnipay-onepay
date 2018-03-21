@@ -71,4 +71,22 @@ class NoiDiaCompletePurchaseResponse extends AbstractResponse
                 return "Giao dịch thất bại - Failed";
         }
     }
+
+    public function getTransactionReference()
+    {
+        if (isset($this->data['vpc_TransactionNo'])) {
+            return $this->data['vpc_TransactionNo'];
+        }
+
+        return null;
+    }
+
+    public function getTransactionId()
+    {
+        if (isset($this->data['vpc_OrderInfo'])) {
+            return $this->data['vpc_OrderInfo'];
+        }
+
+        return null;
+    }
 }

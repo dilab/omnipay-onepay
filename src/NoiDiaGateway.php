@@ -111,7 +111,7 @@ class NoiDiaGateway extends AbstractGateway
 
     public function completePurchase(array $parameters = [])
     {
-        return $this->createRequest('\Omnipay\OnePay\Message\NoiDiaFetchRequest', $parameters);
+        return $this->createRequest('\Omnipay\OnePay\Message\NoiDiaCompletePurchaseRequest', $parameters);
     }
 
 

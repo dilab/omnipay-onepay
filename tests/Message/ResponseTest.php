@@ -21,7 +21,7 @@ class ResponseTest extends TestCase
         $response     = new Response($this->getMockRequest(), $httpResponse->getBody());
 
         $this->assertTrue($response->isSuccessful());
-        $this->assertSame('1431785', $response->getTransactionReference());
+        $this->assertSame('1625746', $response->getTransactionReference());
         $this->assertEquals('Approved', $response->getMessage());
     }
 
