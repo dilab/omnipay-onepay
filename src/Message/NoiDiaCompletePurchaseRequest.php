@@ -63,7 +63,7 @@ class NoiDiaCompletePurchaseRequest extends AbstractRequest
             }
 
             $stringHashData = rtrim($stringHashData, "&");
-
+            
             return hash_hmac('SHA256', $stringHashData, pack('H*', $secureHash));
         }
 

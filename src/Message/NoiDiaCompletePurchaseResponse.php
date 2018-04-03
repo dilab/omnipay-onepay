@@ -68,7 +68,7 @@ class NoiDiaCompletePurchaseResponse extends AbstractResponse
                 return 'User cancel';
                 break;
             default :
-                return 'Failed';
+                return 'Failed - ' . $this->data['vpc_TxnResponseCode'];
         }
     }
 
