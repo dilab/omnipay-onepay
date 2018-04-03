@@ -14,7 +14,7 @@ class NoiDiaCompletePurchaseRequest extends AbstractRequest
 
     public function getData()
     {
-        $data = $this->httpRequest->request->all();
+        $data = $this->httpRequest->query->all();
         $data['computed_hash_value'] = $this->computeHash($data);
         return $data;
     }

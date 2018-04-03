@@ -39,7 +39,7 @@ class NoiDiaGatewayTest extends GatewayTestCase
 
     public function testCompletePurchaseSuccess()
     {
-        $this->getHttpRequest()->request->replace([
+        $this->getHttpRequest()->query->replace([
             'vpc_AdditionData' => 970436,
             'vpc_Amount' => 100,
             'vpc_Command' => 'pay',
@@ -68,7 +68,7 @@ class NoiDiaGatewayTest extends GatewayTestCase
     public function testCompletePurchaseFailure()
     {
 
-        $this->getHttpRequest()->request->replace([
+        $this->getHttpRequest()->query->replace([
             'vpc_AdditionData' => 970436,
             'vpc_Amount' => 100,
             'vpc_Command' => 'pay',
