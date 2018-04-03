@@ -22,53 +22,53 @@ class NoiDiaCompletePurchaseResponse extends AbstractResponse
     public function getMessage()
     {
         switch ($this->data['vpc_TxnResponseCode']) {
-            case "0" :
-                return "Giao dịch thành công - Approved";
+            case '0' :
+                return 'Approved';
                 break;
-            case "1" :
-                return "Ngân hàng từ chối giao dịch - Bank Declined";
+            case '1' :
+                return 'Bank declined';
                 break;
-            case "3" :
-                return "Mã đơn vị không tồn tại - Merchant not exist";
+            case '3' :
+                return 'Merchant not exist';
                 break;
-            case "4" :
-                return "Không đúng access code - Invalid access code";
+            case '4' :
+                return 'Invalid access code';
                 break;
-            case "5" :
-                return "Số tiền không hợp lệ - Invalid amount";
+            case '5' :
+                return 'Invalid amount';
                 break;
-            case "6" :
-                return "Mã tiền tệ không tồn tại - Invalid currency code";
+            case '6' :
+                return 'Invalid currency code';
                 break;
-            case "7" :
-                return "Lỗi không xác định - Unspecified Failure ";
+            case '7' :
+                return 'Unspecified failure';
                 break;
-            case "8" :
-                return "Số thẻ không đúng - Invalid card Number";
+            case '8' :
+                return 'Invalid card Number';
                 break;
-            case "9" :
-                return "Tên chủ thẻ không đúng - Invalid card name";
+            case '9' :
+                return 'Invalid card name';
                 break;
-            case "10" :
-                return "Thẻ hết hạn/Thẻ bị khóa - Expired Card";
+            case '10' :
+                return 'Expired card';
                 break;
-            case "11" :
-                return "Thẻ chưa đăng ký sử dụng dịch vụ - Card Not Registed Service(internet banking)";
+            case '11' :
+                return 'Card not registered service(internet banking)';
                 break;
-            case "12" :
-                return "Ngày phát hành/Hết hạn không đúng - Invalid card date";
+            case '12' :
+                return 'Invalid card date';
                 break;
-            case "13" :
-                return "Vượt quá hạn mức thanh toán - Exist Amount";
+            case '13' :
+                return 'Exist amount';
                 break;
-            case "21" :
-                return "Số tiền không đủ để thanh toán - Insufficient fund";
+            case '21' :
+                return 'Insufficient fund';
                 break;
-            case "99" :
-                return "Người sủ dụng hủy giao dịch - User cancel";
+            case '99' :
+                return 'User cancel';
                 break;
             default :
-                return "Giao dịch thất bại - Failed";
+                return 'Failed';
         }
     }
 
