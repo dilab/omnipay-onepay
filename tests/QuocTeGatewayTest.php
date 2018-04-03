@@ -157,7 +157,7 @@ class QuocTeGatewayTest extends GatewayTestCase
 
         $this->assertTrue($response->isSuccessful());
 
-        $this->assertSame('Transaction Successful', $response->getMessage());
+        $this->assertSame('Transaction successful', $response->getMessage());
 
         $this->assertSame('1431785', $response->getTransactionReference());
     }
