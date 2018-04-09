@@ -15,8 +15,7 @@ class NoiDiaCompletePurchaseResponse extends AbstractResponse
 {
     public function isSuccessful()
     {
-        return strtoupper($this->data['vpc_SecureHash']) ==
-            strtoupper($this->data['computed_hash_value']);
+        return $this->isHashMatch() && $this->data['vpc_TxnResponseCode'] == '0';
     }
 
     public function getMessage()
@@ -88,5 +87,10 @@ class NoiDiaCompletePurchaseResponse extends AbstractResponse
         }
 
         return null;
+    }
+
+    private function isHashMatch()
+    {
+        return (strtoupper($this->data['vpc_SecureHash']) == strtoupper($this->data['computed_hash_value']));
     }
 }
