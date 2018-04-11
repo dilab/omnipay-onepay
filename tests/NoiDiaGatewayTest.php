@@ -109,9 +109,6 @@ class NoiDiaGatewayTest extends GatewayTestCase
         $response = $this->gateway->createResponse('\Omnipay\OnePay\Message\Response', ['vpc_TxnResponseCode' => 0], 'purchase');
 
         $this->assertTrue($response->isSuccessful());
-
-        // send to complete
-        $this->testFetchSuccess();
     }
 
     public function testPurchaseFailure()
@@ -130,94 +127,5 @@ class NoiDiaGatewayTest extends GatewayTestCase
         $this->assertFalse($response->isSuccessful());
 
         $this->assertSame('Field AgainLink value is invalid.', $response->getMessage());
-    }
-
-    public function testFetchSuccess()
-    {
-        $this->setMockHttpResponse('NoiDiaFetchSuccess.txt');
-
-        $options = [
-            'vpcMerchant' => 'ONEPAY',
-            'vpcAccessCode' => 'D67342C2',
-            'secureHash' => 'A3EFDFABA8653DF2342E8DAC29B51AF0',
-            'vpcUser' => 'op01',
-            'vpcPassword' => 'op123456',
-            'testMode' => true,
-            'transactionId' => '2413'
-        ];
-
-        $request = $this->gateway->fetchCheckout($options);
-
-        $this->assertInstanceOf('\Omnipay\OnePay\Message\NoiDiaFetchRequest', $request);
-        {
-            $this->setMockHttpResponse('NoiDiaFetchSuccess.txt');
-
-            $options = [
-                'vpcMerchant' => 'ONEPAY',
-                'vpcAccessCode' => 'D67342C2',
-                'secureHash' => 'A3EFDFABA8653DF2342E8DAC29B51AF0',
-                'vpcUser' => 'op01',
-                'vpcPassword' => 'op123456',
-                'testMode' => true,
-                'transactionId' => '2413'
-            ];
-
-            $request = $this->gateway->fetchCheckout($options);
-
-            $this->assertInstanceOf('\Omnipay\OnePay\Message\NoiDiaFetchRequest', $request);
-
-            $this->assertSame('2413', $request->getVpc_MerchTxnRef());
-
-            $response = $request->send();
-
-            $this->assertTrue($response->isSuccessful());
-
-            $this->assertSame('Approved', $response->getMessage());
-
-            $this->assertSame('1431785', $response->getTransactionReference());
-
-            return $response;
-        }
-
-        $this->assertSame('2413', $request->getVpc_MerchTxnRef());
-
-        $response = $request->send();
-
-        $this->assertTrue($response->isSuccessful());
-
-        $this->assertSame('Approved', $response->getMessage());
-
-        $this->assertSame('1431785', $response->getTransactionReference());
-
-        return $response;
-    }
-
-    public function testFetchFailure()
-    {
-        $this->setMockHttpResponse('NoiDiaFetchFailure.txt');
-
-        $options = [
-            'vpcMerchant' => 'ONEPAY',
-            'vpcAccessCode' => 'D67342C2',
-            'secureHash' => 'A3EFDFABA8653DF2342E8DAC29B51AF0',
-            'vpcUser' => 'op01',
-            'vpcPassword' => 'op123456',
-            'testMode' => true,
-            'transactionId' => '2013042215193440019'
-        ];
-
-        $request = $this->gateway->fetchCheckout($options);
-
-        $this->assertInstanceOf('\Omnipay\OnePay\Message\NoiDiaFetchRequest', $request);
-
-        $this->assertSame('2013042215193440019', $request->getVpc_MerchTxnRef());
-
-        $response = $request->send();
-
-        $this->assertFalse($response->isSuccessful());
-
-        $this->assertSame('Failed', $response->getMessage());
-
-        return $response;
     }
 }

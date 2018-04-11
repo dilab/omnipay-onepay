@@ -25,11 +25,6 @@ class QuocTeGateway extends NoiDiaGateway
         return $this->createRequest('\Omnipay\OnePay\Message\QuocTeCompletePurchaseRequest', $parameters);
     }
 
-    public function fetchCheckout(array $parameters = [])
-    {
-        return $this->createRequest('\Omnipay\OnePay\Message\QuocTeFetchRequest', $parameters);
-    }
-
     public function getResponse(array $parameters = [], $type = 'purchase')
     {
         return $this->createResponse('\Omnipay\OnePay\Message\QuocTePurchaseResponse', $parameters, $type);

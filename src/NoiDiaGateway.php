@@ -114,13 +114,6 @@ class NoiDiaGateway extends AbstractGateway
         return $this->createRequest('\Omnipay\OnePay\Message\NoiDiaCompletePurchaseRequest', $parameters);
     }
 
-
-    public function fetchCheckout(array $parameters = [])
-    {
-        return $this->createRequest('\Omnipay\OnePay\Message\NoiDiaFetchRequest', $parameters);
-    }
-
-
     /**
      * TODO should move to AbstractGateway
      *
@@ -136,7 +129,6 @@ class NoiDiaGateway extends AbstractGateway
     {
         return new $class(call_user_func_array([$this, $type], [$parameters]), $parameters);
     }
-
 
     public function getResponse(array $parameters = [], $type = 'purchase')
     {

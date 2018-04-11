@@ -113,7 +113,6 @@ class QuocTeGatewayTest extends GatewayTestCase
         $this->assertInstanceOf('\Omnipay\OnePay\Message\QuocTePurchaseResponse', $response);
 
         $this->assertTrue($response->isSuccessful());;
-
     }
 
     public function testPurchaseFailure()
@@ -133,60 +132,4 @@ class QuocTeGatewayTest extends GatewayTestCase
 
         $this->assertSame('Field AgainLink value is invalid.', $response->getMessage());
     }
-
-    public function testFetchSuccess()
-    {
-        $this->setMockHttpResponse('QuocTeFetchSuccess.txt');
-
-        $options = [
-            'vpcMerchant' => 'TESTONEPAY',
-            'vpcAccessCode' => '6BEB2546',
-            'testMode' => true,
-            'vpcUser' => 'op01',
-            'vpcPassword' => 'op123456',
-            'transactionId' => 'GDEAXIEM_41382,4523317014',
-        ];
-
-        $request = $this->gateway->fetchCheckout($options);
-
-        $this->assertInstanceOf('\Omnipay\OnePay\Message\QuocTeFetchRequest', $request);
-
-        $this->assertSame('GDEAXIEM_41382,4523317014', $request->getVpc_MerchTxnRef());
-
-        $response = $request->send();
-
-        $this->assertTrue($response->isSuccessful());
-
-        $this->assertSame('Transaction successful', $response->getMessage());
-
-        $this->assertSame('1431785', $response->getTransactionReference());
-    }
-
-    public function testFetchFailure()
-    {
-        $this->setMockHttpResponse('QuocTeFetchFailure.txt');
-
-        $options = [
-            'vpcMerchant' => 'TESTONEPAY',
-            'vpcAccessCode' => 'D67342C2',
-            'testMode' => true,
-            'vpcUser' => 'op01',
-            'vpcPassword' => 'op123456',
-            'transactionId' => 'GDEAXIEM_41382,4523317014',
-        ];
-
-        $request = $this->gateway->fetchCheckout($options);
-
-        $this->assertInstanceOf('\Omnipay\OnePay\Message\QuocTeFetchRequest', $request);
-
-        $this->assertSame('GDEAXIEM_41382,4523317014', $request->getVpc_MerchTxnRef());
-
-        $response = $request->send();
-
-        $this->assertFalse($response->isSuccessful());
-
-        $this->assertSame('Unable to be determined', $response->getMessage());
-    }
-
-
 }
