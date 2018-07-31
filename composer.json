@@ -1,5 +1,5 @@
 {
-    "name": "dilab/omnipay-onepay",
+    "name": "fm/omnipay-onepay",
     "description": "OnePay gateway for Omnipay payment processing library",
     "keywords": [
         "gateway",
@@ -20,6 +20,10 @@
         {
             "name": "xu ding",
             "email": "thedilab@gmail.com"
+        },
+        {
+            "name": "Derek Clapham",
+            "email": "derek.clapham@gmail.com"
         }
     ],
     "minimum-stability": "stable",
