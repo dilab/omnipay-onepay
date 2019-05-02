@@ -30,6 +30,25 @@ class NoiDiaGateway extends AbstractGateway
         ];
     }
 
+    public function setVpcPromotionList($vpcPromotionList)
+    {
+        return $this->setParameter('vpcPromotionList', $vpcPromotionList);
+    }
+
+    public function getVpcPromotionList()
+    {
+        return $this->getParameter('vpcPromotionList');
+    }
+
+    public function setVpcPromotionAmountList($vpcPromotionAmountList)
+    {
+        return $this->setParameter('vpcPromotionAmountList', $vpcPromotionAmountList);
+    }
+
+    public function getVpcPromotionAmountList()
+    {
+        return $this->getParameter('vpcPromotionAmountList');
+    }
 
     public function getVpcAccessCode()
     {

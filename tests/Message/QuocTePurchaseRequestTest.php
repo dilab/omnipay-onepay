@@ -35,14 +35,18 @@ class QuocTePurchaseRequestTest extends TestCase
 
     public function testGetData()
     {
+        $this->request->setTransactionId($orderId = '12345');
+
         $expected = [
             'vpc_Merchant' => 'TESTONEPAY',
             'vpc_AccessCode' => '6BEB2546',
-            'vpc_order_id' => '1431786',
+            'vpc_order_id' => $orderId,
             'Title' => 'VPC 3-Party',
             'vpc_Version' => '2',
             'vpc_Command' => 'pay',
-            'virtualPaymentClientURL' => $this->testGetEndpoint(),
+            'vpc_MerchTxnRef' => $orderId,
+            'vpc_OrderInfo' => $orderId,
+            'virtualPaymentClientURL' => 'https://mtf.onepay.vn/vpcpay/vpcpay.op',
             'vpc_Amount' => 100000,
             'vpc_Locale' => $this->getHttpRequest()->getLocale(),
             'vpc_ReturnURL' => 'http://www.google.com/app_dev.php/backend/process_transaction.html/1431786?client_key=94bc04c3760620d537b6717abd53ff3e&action=return',
@@ -50,17 +54,17 @@ class QuocTePurchaseRequestTest extends TestCase
             'AgainLink' => urlencode($this->getHttpRequest()->server->get('HTTP_REFERER'))
         ];
 
-        $requetData = $this->request->getData();
+        $data = $this->request->getData();
+        $this->assertEquals($expected, $data);
 
-        $this->assertSame('1431786', $requetData['vpc_MerchTxnRef']);
-        $this->assertSame('1431786', $requetData['vpc_OrderInfo']);
-        $this->assertNotNull($requetData['vpc_OrderInfo']);
-
-        // exclude by random property
-        unset($requetData['vpc_OrderInfo']);
-        unset($requetData['vpc_MerchTxnRef']);
-
-        $this->assertEquals($expected, $requetData);
+        // test promotion
+        $this->request->setVpcPromotionList($vpcPromotionList = 'A57A96B7390309AD9FC02D4824C43B56');
+        $this->request->setVpcPromotionAmountList($vpcPromotionAmountList = '80000000');
+        $expected['vpc_PromotionList'] = $vpcPromotionList;
+        $expected['vpc_Promotion_Amount_List'] = $vpcPromotionAmountList;
+        $expected['virtualPaymentClientURL'] = 'https://mtf.onepay.vn/promotion/vpcpr.op';
+        $data = $this->request->getData();
+        $this->assertEquals($expected, $data);
     }
 
     public function testSendData()
@@ -74,14 +78,18 @@ class QuocTePurchaseRequestTest extends TestCase
 
     public function testGetEndpoint()
     {
-        $reflectionOfUser = new \ReflectionClass('\Omnipay\OnePay\Message\QuocTePurchaseRequest');
+        $this->request->setTestMode(true);
+        $this->assertEquals('https://mtf.onepay.vn/vpcpay/vpcpay.op', $this->request->getEndpoint());
 
-        $method = $reflectionOfUser->getMethod('getEndpoint');
+        $this->request->setTestMode(false);
+        $this->assertEquals('https://onepay.vn/vpcpay/vpcpay.op', $this->request->getEndpoint());
 
-        $method->setAccessible(true);
+        $this->request->setTestMode(true);
+        $this->request->setVpcPromotionList('12121112');
+        $this->assertEquals('https://mtf.onepay.vn/promotion/vpcpr.op', $this->request->getEndpoint());
 
-        $this->assertEquals('https://mtf.onepay.vn/vpcpay/vpcpay.op', $method->invokeArgs($this->request, []));
-
-        return 'https://mtf.onepay.vn/vpcpay/vpcpay.op';
+        $this->request->setTestMode(false);
+        $this->request->setVpcPromotionList('12121112');
+        $this->assertEquals('https://onepay.vn/promotion/vpcpr.op', $this->request->getEndpoint());
     }
 }

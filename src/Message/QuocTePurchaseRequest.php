@@ -11,6 +11,10 @@ class QuocTePurchaseRequest extends AbstractRequest
 
     protected $testEndpoint = 'https://mtf.onepay.vn/vpcpay/vpcpay.op';
 
+    protected $liveEndpointWithPromotion = 'https://onepay.vn/promotion/vpcpr.op';
+
+    protected $testEndpointWithPromotion = 'https://mtf.onepay.vn/promotion/vpcpr.op';
+
     public function getData()
     {
         $this->validate('amount');
@@ -30,9 +34,16 @@ class QuocTePurchaseRequest extends AbstractRequest
             'vpc_TicketNo' => $this->httpRequest->getClientIp(),
         ];
 
+        if (!empty($this->getVpcPromotionList())) {
+            $data['vpc_PromotionList'] = $this->getVpcPromotionList();
+        }
+
+        if (!empty($this->getVpcPromotionAmountList())) {
+            $data['vpc_Promotion_Amount_List'] = $this->getVpcPromotionAmountList();
+        }
+
         return array_merge($data, $this->getBaseData());
     }
-
 
     public function sendData($data)
     {
@@ -41,4 +52,12 @@ class QuocTePurchaseRequest extends AbstractRequest
         return $this->response = new QuocTePurchaseResponse($this, $data);
     }
 
+    public function getEndpoint()
+    {
+        if (!empty($this->getVpcPromotionList())) {
+            return $this->getTestMode() ? $this->testEndpointWithPromotion : $this->liveEndpointWithPromotion;
+        }
+
+        return $this->getTestMode() ? $this->testEndpoint : $this->liveEndpoint;
+    }
 }
