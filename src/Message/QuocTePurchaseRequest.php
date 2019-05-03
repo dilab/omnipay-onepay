@@ -7,13 +7,6 @@ namespace Omnipay\OnePay\Message;
  */
 class QuocTePurchaseRequest extends AbstractRequest
 {
-    protected $liveEndpoint = 'https://onepay.vn/vpcpay/vpcpay.op';
-
-    protected $testEndpoint = 'https://mtf.onepay.vn/vpcpay/vpcpay.op';
-
-    protected $liveEndpointWithPromotion = 'https://onepay.vn/promotion/vpcpr.op';
-
-    protected $testEndpointWithPromotion = 'https://mtf.onepay.vn/promotion/vpcpr.op';
 
     public function getData()
     {
@@ -55,9 +48,9 @@ class QuocTePurchaseRequest extends AbstractRequest
     public function getEndpoint()
     {
         if (!empty($this->getVpcPromotionList())) {
-            return $this->getTestMode() ? $this->testEndpointWithPromotion : $this->liveEndpointWithPromotion;
+            return $this->getTestMode() ? $this->testEndpointInternationalWithPromotion: $this->liveEndpointInternationalWithPromotion;
         }
 
-        return $this->getTestMode() ? $this->testEndpoint : $this->liveEndpoint;
+        return $this->getTestMode() ? $this->testEndpointInternational : $this->liveEndpointInternational;
     }
 }

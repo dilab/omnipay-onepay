@@ -105,4 +105,12 @@ class NoiDiaPurchaseCompleteRequestTest extends TestCase
         ]));
     }
 
+    public function testGetEndpoint()
+    {
+        $this->request->setTestMode(true);
+        $this->assertEquals('https://mtf.onepay.vn/onecomm-pay/vpc.op', $this->request->getEndpoint());
+
+        $this->request->setTestMode(false);
+        $this->assertEquals('https://onepay.vn/onecomm-pay/vpc.op', $this->request->getEndpoint());
+    }
 }

@@ -9,11 +9,6 @@ use Omnipay\Common\Message\RedirectResponseInterface;
 class NoiDiaPurchaseResponse extends Response implements RedirectResponseInterface
 {
 
-    protected $liveEndpoint = 'https://onepay.vn/onecomm-pay/vpc.op';
-
-    protected $testEndpoint = 'https://mtf.onepay.vn/onecomm-pay/vpc.op';
-
-
     public function isRedirect()
     {
         return true;
@@ -40,6 +35,6 @@ class NoiDiaPurchaseResponse extends Response implements RedirectResponseInterfa
 
     protected function getCheckoutEndpoint()
     {
-        return $this->getRequest()->getTestMode() ? $this->testEndpoint : $this->liveEndpoint;
+        return $this->getRequest()->getEndpoint();
     }
 }

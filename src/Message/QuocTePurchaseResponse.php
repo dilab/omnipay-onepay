@@ -9,10 +9,6 @@ use Omnipay\Common\Message\RedirectResponseInterface;
 class QuocTePurchaseResponse extends Response implements RedirectResponseInterface
 {
 
-    protected $liveEndpoint = 'https://onepay.vn/vpcpay/vpcpay.op';
-
-    protected $testEndpoint = 'https://mtf.onepay.vn/vpcpay/vpcpay.op';
-
     protected $transactionStatus = [
         '0' => 'Transaction Is Successful',
         '1' => 'Bank System Reject',
@@ -62,6 +58,6 @@ class QuocTePurchaseResponse extends Response implements RedirectResponseInterfa
 
     protected function getCheckoutEndpoint()
     {
-        return $this->getRequest()->getTestMode() ? $this->testEndpoint : $this->liveEndpoint;
+        return $this->getRequest()->getEndpoint();
     }
 }

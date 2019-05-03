@@ -43,25 +43,17 @@ class NoiDiaPurchaseRequestTest extends TestCase
             'Title' => 'VPC 3-Party',
             'vpc_Version' => '2',
             'vpc_Command' => 'pay',
-            'virtualPaymentClientURL' => $this->testGetEndpoint(),
+            'virtualPaymentClientURL' => 'https://mtf.onepay.vn/onecomm-pay/vpc.op',
             'vpc_Amount' => 100000,
             'vpc_Locale' => $this->getHttpRequest()->getLocale(),
             'vpc_ReturnURL' => 'http://www.google.com/app_dev.php/backend/process_transaction.html/1431785?client_key=94bc04c3760620d537b6717abd53ff3e&action=return',
             'vpc_TicketNo' => $this->getHttpRequest()->getClientIp(),
-            'vpc_Currency' => 'VND'
-
+            'vpc_Currency' => 'VND',
+            'vpc_MerchTxnRef' => '1431785',
+            'vpc_OrderInfo' => '1431785',
         ];
 
         $requetData = $this->request->getData();
-
-        $this->assertSame('1431785', $requetData['vpc_MerchTxnRef']);
-        $this->assertSame('1431785', $requetData['vpc_OrderInfo']);
-        $this->assertNotNull($requetData['vpc_OrderInfo']);
-
-        // exclude by random property
-        unset($requetData['vpc_OrderInfo']);
-        unset($requetData['vpc_MerchTxnRef']);
-
         $this->assertEquals($expected, $requetData);
     }
 
@@ -69,21 +61,17 @@ class NoiDiaPurchaseRequestTest extends TestCase
     public function testSendData()
     {
         $this->testGetData();
-
         $data = $this->request->generateDataWithChecksum($this->request->getData());
-
         $this->assertArrayHasKey('vpc_SecureHash', $data);
     }
 
 
     public function testGetEndpoint()
     {
-        $reflectionOfUser = new \ReflectionClass('\Omnipay\OnePay\Message\NoiDiaPurchaseRequest');
-        $method = $reflectionOfUser->getMethod('getEndpoint');
-        $method->setAccessible(true);
+        $this->request->setTestMode(true);
+        $this->assertEquals('https://mtf.onepay.vn/onecomm-pay/vpc.op', $this->request->getEndpoint());
 
-        $this->assertEquals('https://mtf.onepay.vn/onecomm-pay/vpc.op', $method->invokeArgs($this->request, []));
-
-        return 'https://mtf.onepay.vn/onecomm-pay/vpc.op';
+        $this->request->setTestMode(false);
+        $this->assertEquals('https://onepay.vn/onecomm-pay/vpc.op', $this->request->getEndpoint());
     }
 }

@@ -2,16 +2,18 @@
 
 namespace Omnipay\OnePay\Message;
 
-use Guzzle\Http\Message\RequestInterface;
-
 /**
  * Quoc Te Complete Purchase Request
  */
 class QuocTeCompletePurchaseRequest extends NoiDiaCompletePurchaseRequest
 {
 
-    protected $liveEndpoint = 'https://onepay.vn/vpcpay/Vpcdps.op';
+    public function getEndpoint()
+    {
+        if (!empty($this->getVpcPromotionList())) {
+            return $this->getTestMode() ? $this->testEndpointInternationalWithPromotion: $this->liveEndpointInternationalWithPromotion;
+        }
 
-    protected $testEndpoint = 'https://mtf.onepay.vn/vpcpay/Vpcdps.op';
-
+        return $this->getTestMode() ? $this->testEndpointInternational : $this->liveEndpointInternational;
+    }
 }

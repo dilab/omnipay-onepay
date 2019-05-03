@@ -35,18 +35,4 @@ class NoiDiaPurchaseResponseTest extends TestCase
         $this->assertEquals($expected, $this->response->getData());
     }
 
-
-    public function testGetRedirectUrl()
-    {
-        $this->testConstruct();
-
-        $request = $this->getMockRequest();
-        $request->shouldReceive('getTestMode')->once()->andReturn(true);
-        $this->assertFalse($this->response->isSuccessful());
-        $this->assertTrue($this->response->isRedirect());
-        $this->assertNull($this->response->getRedirectData());
-        $this->assertSame('https://mtf.onepay.vn/onecomm-pay/vpc.op?' . http_build_query($this->response->getData(), '',
-                '&'), $this->response->getRedirectUrl());
-        $this->assertSame('POST', $this->response->getRedirectMethod());
-    }
 }

@@ -12,9 +12,19 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     const API_VERSION = '2';
 
-    protected $liveEndpoint = 'https://onepay.vn/onecomm-pay/vpc.op';
+    protected $liveEndpointDomestic = 'https://onepay.vn/onecomm-pay/vpc.op';
 
-    protected $testEndpoint = 'https://mtf.onepay.vn/onecomm-pay/vpc.op';
+    protected $testEndpointDomestic = 'https://mtf.onepay.vn/onecomm-pay/vpc.op';
+
+    protected $liveEndpointInternational = 'https://onepay.vn/vpcpay/vpcpay.op';
+
+    protected $testEndpointInternational = 'https://mtf.onepay.vn/vpcpay/vpcpay.op';
+
+    protected $liveEndpointInternationalWithPromotion = 'https://onepay.vn/promotion/vpcpr.op';
+
+    protected $testEndpointInternationalWithPromotion = 'https://mtf.onepay.vn/promotion/vpcpr.op';
+
+    abstract protected function getEndpoint();
 
     public function setVpcPromotionList($vpcPromotionList)
     {
@@ -120,11 +130,6 @@ abstract class AbstractRequest extends BaseAbstractRequest
         $url = $this->getEndpoint() . '?' . http_build_query($data, '', '&');
         $httpResponse = $this->httpClient->get($url)->send();
         return $this->createResponse($httpResponse->getBody());
-    }
-
-    protected function getEndpoint()
-    {
-        return $this->getTestMode() ? $this->testEndpoint : $this->liveEndpoint;
     }
 
     protected function createResponse($data)

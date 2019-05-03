@@ -8,9 +8,10 @@ namespace Omnipay\OnePay\Message;
 class NoiDiaCompletePurchaseRequest extends AbstractRequest
 {
 
-    protected $liveEndpoint = 'https://onepay.vn/onecomm-pay/Vpcdps.op';
-
-    protected $testEndpoint = 'https://mtf.onepay.vn/onecomm-pay/Vpcdps.op';
+    public function getEndpoint()
+    {
+        return $this->getTestMode() ? $this->testEndpointDomestic : $this->liveEndpointDomestic;
+    }
 
     public function getData()
     {

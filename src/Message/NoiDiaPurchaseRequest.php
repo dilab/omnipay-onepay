@@ -30,12 +30,17 @@ class NoiDiaPurchaseRequest extends AbstractRequest
         return array_merge($data, $this->getBaseData());
     }
 
-
     public function sendData($data)
     {
         $data = http_build_query($this->generateDataWithChecksum($data), '', '&');
 
         return $this->response = new NoiDiaPurchaseResponse($this, $data);
     }
+
+    public function getEndpoint()
+    {
+        return $this->getTestMode() ? $this->testEndpointDomestic : $this->liveEndpointDomestic;
+    }
+
 
 }
