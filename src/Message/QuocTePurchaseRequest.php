@@ -28,7 +28,7 @@ class QuocTePurchaseRequest extends AbstractRequest
         ];
 
         if (!empty($this->getVpcPromotionList())) {
-            $data['vpc_PromotionList'] = $this->getVpcPromotionList();
+            $data['vpc_Promotion_List'] = $this->getVpcPromotionList();
         }
 
         if (!empty($this->getVpcPromotionAmountList())) {

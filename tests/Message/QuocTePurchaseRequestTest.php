@@ -60,7 +60,7 @@ class QuocTePurchaseRequestTest extends TestCase
         // test promotion
         $this->request->setVpcPromotionList($vpcPromotionList = 'A57A96B7390309AD9FC02D4824C43B56');
         $this->request->setVpcPromotionAmountList($vpcPromotionAmountList = '80000000');
-        $expected['vpc_PromotionList'] = $vpcPromotionList;
+        $expected['vpc_Promotion_List'] = $vpcPromotionList;
         $expected['vpc_Promotion_Amount_List'] = $vpcPromotionAmountList;
         $expected['virtualPaymentClientURL'] = 'https://mtf.onepay.vn/promotion/vpcpr.op';
         $data = $this->request->getData();
